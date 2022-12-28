@@ -80,12 +80,12 @@ namespace lammpsedit
                 Array.Sort(atomdatay);
                 Array.Sort(atomdataz);
 
-                label6.Text = Convert.ToString(atomdatax[n-1]);
-                label7.Text = Convert.ToString(atomdatay[n-1]);
-                label8.Text = Convert.ToString(atomdataz[n-1]);
-                label9.Text = Convert.ToString(atomdatax[0]);
-                label10.Text = Convert.ToString(atomdatay[0]);
-                label11.Text = Convert.ToString(atomdataz[0]);
+                label6.Text = Convert.ToString(atomdatax[0]);
+                label7.Text = Convert.ToString(atomdatay[0]);
+                label8.Text = Convert.ToString(atomdataz[0]);
+                label9.Text = Convert.ToString(atomdatax[n-1]);
+                label10.Text = Convert.ToString(atomdatay[n-1]);
+                label11.Text = Convert.ToString(atomdataz[n-1]);
 
                 //ÇªÇÃëºÇÃåvéZï“èWÇ»Ç«
                 for (int i = 0; i < n; i++)
