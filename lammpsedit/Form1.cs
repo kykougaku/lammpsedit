@@ -100,16 +100,18 @@ namespace lammpsedit
                 progressBar1.Maximum = n;
 
                 //box2‚É‘‚«‚İ
+                string boxtext = "";
                 for(int i = 0; i < n; i++)
                 {
-                    string linew = "";
+                    //string linew = "";
                     for(int j = 0; j < 5; j++)
                     {
-                        linew += Convert.ToString(atomdata[i,j]) + " ";
+                        boxtext += Convert.ToString(atomdata[i,j]) + " ";
                     }
-                    textBox2.AppendText(linew + Environment.NewLine);
+                    boxtext += Environment.NewLine;
                     progressBar1.PerformStep();
                 }
+                textBox2.AppendText(boxtext);
             }
         }
 
