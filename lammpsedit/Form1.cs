@@ -17,94 +17,99 @@ namespace lammpsedit
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int linenum = 1;
             int atomdataline = 20;
-
-            textBox2.Text = "";
 
             DialogResult dr = openFileDialog1.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
-                filename = openFileDialog1.FileName;
+                textBox2.Text = ""; //textboxをリセット
 
-                foreach (string line in System.IO.File.ReadLines(@filename))
+                filename = openFileDialog1.FileName;
+                string[] readlines = System.IO.File.ReadAllLines(@filename);//ファイル内容を取得
+
+                //2行目で原子数を読み取り
+                string[] words = readlines[1].Split(' ');
+                n = Convert.ToInt32(words[0]);
+
+
+                //"Atoms  # atomic")コメントを探索 → indexから原子座標データの行番号を取得
+                for (int i = 0; i<readlines.Length; i++)
                 {
-                    if (linenum == 2)//2行目で原子数を読み取り
+                    if (readlines[i] == "Atoms  # atomic")
                     {
-                        string[] words = line.Split(' ');
-                        n = Convert.ToInt32(words[0]);
+                        atomdataline = i + 2;
                         break;
                     }
-
-                    linenum++;
                 }
-            }
+                //一度抜ける
 
-            //初期化して最初から読み直し(nをもちいて配列宣言をするためにforeachを抜けなければいけない)
-            linenum = 1;
-            double[,] atomdata = new double[n, 5];//原子座標データを格納する二次元配列
-            // l0:Atom_ID l1:Atom_Type l2-4:position x-z
+                double[,] atomdata = new double[n, 5];//原子座標データを格納する二次元配列
+                // l0:Atom_ID l1:Atom_Type l2-4:position x-z
 
-            string[] atomdatas = new string[n+20];
-
-            foreach (string line in System.IO.File.ReadLines(@filename))
-            {
-                if (line == "Atoms  # atomic") atomdataline = linenum + 2;//コメント「toms  # atomic」を見つけたらフラグを立てる
-
-
-                if ( linenum >= atomdataline)//コメント「toms  # atomic」から2行後ろの原子座標データに到達したら
+                for (int i = 0; i < readlines.Length; i++)
                 {
-                    string[] words = line.Split(' ');
-                    for(int j = 0; j<5; j++)
+                    if (atomdataline <= i)//コメント「toms  # atomic」から2行後ろの原子座標データに到達したら
                     {
-                        atomdata[linenum - atomdataline, j] = Convert.ToDouble(words[j]);
+                        string[] wordss = readlines[i].Split(' ');
+                        for (int j = 0; j < 5; j++)
+                        {
+                            atomdata[i - atomdataline, j] = Convert.ToDouble(wordss[j]);
+                        }
+                    }
+                    else//原子座標データ前ならbox2に書き込み
+                    {
+                        textBox2.Text += readlines[i] + Environment.NewLine;
+                    }
+
+                }
+
+
+                //ここで配列の計算編集処理
+
+                //座標の最大最小値を表示
+                double[] atomdatax = new double[n];
+                double[] atomdatay = new double[n];
+                double[] atomdataz = new double[n];
+                for (int i = 0; i < n; i++)
+                {
+                    atomdatax[i] = atomdata[i, 2];
+                    atomdatay[i] = atomdata[i, 3];
+                    atomdataz[i] = atomdata[i, 4];
+                }
+                Array.Sort(atomdatax);
+                Array.Sort(atomdatay);
+                Array.Sort(atomdataz);
+
+                label6.Text = Convert.ToString(atomdatax[n-1]);
+                label7.Text = Convert.ToString(atomdatay[n-1]);
+                label8.Text = Convert.ToString(atomdataz[n-1]);
+                label9.Text = Convert.ToString(atomdatax[0]);
+                label10.Text = Convert.ToString(atomdatay[0]);
+                label11.Text = Convert.ToString(atomdataz[0]);
+
+                //その他の計算編集など
+                for (int i = 0; i < n; i++)
+                {
+                    if (atomdata[i,2] > 11.5)
+                    {
+                        //atomdata[i, 1] += 2;
                     }
                 }
-                else//原子座標データ前ならbox2に書き込み
+
+                //progress barの設定
+                progressBar1.Maximum = n;
+
+                //box2に書き込み
+                for(int i = 0; i < n; i++)
                 {
-                    textBox2.Text += line + Environment.NewLine;
+                    string linew = "";
+                    for(int j = 0; j < 5; j++)
+                    {
+                        linew += Convert.ToString(atomdata[i,j]) + " ";
+                    }
+                    textBox2.AppendText(linew + Environment.NewLine);
+                    progressBar1.PerformStep();
                 }
-
-                linenum++;
-            }
-
-            //ここで配列の計算編集処理
-            double[] atomdatax = new double[n];
-            double[] atomdatay = new double[n];
-            double[] atomdataz = new double[n];
-            for (int i = 0; i < n; i++)
-            {
-                atomdatax[i] = atomdata[i, 2];
-                atomdatay[i] = atomdata[i, 3];
-                atomdataz[i] = atomdata[i, 4];
-            }
-            Array.Sort(atomdatax);
-            Array.Sort(atomdatay);
-            Array.Sort(atomdataz);
-
-            label6.Text = Convert.ToString(atomdatax[n-1]);
-            label7.Text = Convert.ToString(atomdatay[n-1]);
-            label8.Text = Convert.ToString(atomdataz[n-1]);
-            label9.Text = Convert.ToString(atomdatax[0]);
-            label10.Text = Convert.ToString(atomdatay[0]);
-            label11.Text = Convert.ToString(atomdataz[0]);
-            for (int i = 0; i < n; i++)
-            {
-                if (atomdata[i,2] > 11.5)
-                {
-                    //atomdata[i, 1] += 2;
-                }
-            }
-
-            //box2に書き込み
-            for(int i = 0; i < n; i++)
-            {
-                string linew = "";
-                for(int j = 0; j < 5; j++)
-                {
-                    linew += Convert.ToString(atomdata[i,j]) + " ";
-                }
-                textBox2.Text += linew + Environment.NewLine;
             }
         }
 
