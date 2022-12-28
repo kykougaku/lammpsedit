@@ -69,11 +69,27 @@ namespace lammpsedit
             }
 
             //Ç±Ç±Ç≈îzóÒÇÃåvéZï“èWèàóù
-            for(int i = 0; i < n; i++)
+            double[] atomdatax = new double[n];
+            double[] atomdatay = new double[n];
+            double[] atomdataz = new double[n];
+            for (int i = 0; i < n; i++)
             {
-                if (atomdata[i,3] < -5.0)
+                atomdatax[i] = atomdata[i, 2];
+                atomdatay[i] = atomdata[i, 3];
+                atomdataz[i] = atomdata[i, 4];
+            }
+            Array.Sort(atomdatax);
+            Array.Sort(atomdatay);
+            Array.Sort(atomdataz);
+
+            label9.Text = Convert.ToString(atomdatax[0]);
+            label10.Text = Convert.ToString(atomdatay[0]);
+            label11.Text = Convert.ToString(atomdataz[0]);
+            for (int i = 0; i < n; i++)
+            {
+                if (atomdata[i,2] > 11.5)
                 {
-                    atomdata[i, 1] += 2;
+                    //atomdata[i, 1] += 2;
                 }
             }
 
@@ -116,6 +132,11 @@ namespace lammpsedit
         }
 
         private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
