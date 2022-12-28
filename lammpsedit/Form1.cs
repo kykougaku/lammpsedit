@@ -100,10 +100,9 @@ namespace lammpsedit
                 progressBar1.Maximum = n;
 
                 //box2に書き込み
-                string boxtext = "";
+                string boxtext = "";//宣言のみだとnullになる。このようにすることで文字列を追加できる
                 for(int i = 0; i < n; i++)
                 {
-                    //string linew = "";
                     for(int j = 0; j < 5; j++)
                     {
                         boxtext += Convert.ToString(atomdata[i,j]) + " ";
@@ -111,7 +110,7 @@ namespace lammpsedit
                     boxtext += Environment.NewLine;
                     progressBar1.PerformStep();
                 }
-                textBox2.AppendText(boxtext);
+                textBox2.AppendText(boxtext);//textboxへの文字列追加はファイル読み込みより時間がかかる。一度に行えば造作もない
             }
         }
 
