@@ -162,8 +162,7 @@ namespace lammpsedit
                     }
 
                     double[,,] satomdata = new double[framenumber, maxatoms, datatype];//原子座標データを格納する三次元配列
-                    //l==0 :: r0:timestep r1:number_of_atoms
-                    //l>0  :: r0:Atom_ID r1:Atom_Type r2-4:position x-z r5-7:compute
+                     //r0:Atom_ID   r1:Atom_Type   r2-4:position_x-z   r5-7:compute
 
                     for (int i=0; i<framenumber; i++)
                     {
@@ -179,6 +178,16 @@ namespace lammpsedit
 
 
                     //その他の計算編集など
+                    for (int i = 0; i < framenumber; i++)
+                    {
+                        for (int j = 0; j < natoms[i]; j++)
+                        {
+                            if (satomdata[i, j, 2] > 0.30200547 && satomdata[i, j, 1] == 2)
+                            {
+                                satomdata[i, j, 1] = 6;
+                            }
+                        }
+                    }
 
 
                     //progress barの設定

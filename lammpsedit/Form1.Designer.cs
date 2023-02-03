@@ -54,7 +54,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(29, 79);
+            this.button1.Location = new System.Drawing.Point(45, 155);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 27);
@@ -77,7 +77,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(29, 149);
+            this.button3.Location = new System.Drawing.Point(45, 303);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(90, 27);
@@ -205,7 +205,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(21, 320);
+            this.progressBar1.Location = new System.Drawing.Point(29, 195);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(120, 27);
@@ -218,7 +218,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "zinit",
             "lammpstrj"});
-            this.comboBox1.Location = new System.Drawing.Point(21, 217);
+            this.comboBox1.Location = new System.Drawing.Point(12, 64);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(151, 28);
             this.comboBox1.TabIndex = 17;
