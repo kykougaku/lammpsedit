@@ -1,4 +1,4 @@
 # lammpsedit
 
-This app is made by Visual studio 2022 need to install .NETframwework to work.
-You can edit lattice data for LAMMPS and save it by this Windows Form Application.
+This app is windows form application(C#) ,made by Visual studio 2022.
+You can edit lattice data for LAMMPS(.zinit) and lammps position data (.lammpstrj) to save it
