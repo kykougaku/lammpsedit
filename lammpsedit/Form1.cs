@@ -192,8 +192,7 @@ namespace lammpsedit
 
                     //progress barの設定
                     progressBar1.Maximum = framenumber;
-
-                    //box2に書き込み
+                    progressBar1.Value = 0;
                     StringBuilder sb = new StringBuilder();
                     //フレームごとにboxに書き込み
                     for (int i = 0; i < framenumber; i++)
@@ -213,6 +212,8 @@ namespace lammpsedit
                         progressBar1.PerformStep();
                     }
                     textBox2.Text = sb.ToString();//textboxへの文字列追加はファイル読み込みより時間がかかる。一度に行えば造作もない
+                    MessageBox.Show("読み込み完了", "完了", MessageBoxButtons.OK);//メッセージボックスで完了通知
+                    progressBar1.Value = 0;
                 }
             }
         }
@@ -257,6 +258,20 @@ namespace lammpsedit
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedItem  == "zinit")
+            {
+                saveFileDialog1.Filter = "結晶構造データ|*.zinit|すべてのファイル|*.*";
+                openFileDialog1.Filter = "結晶構造データ|*.zinit|すべてのファイル|*.*";
+            }
+            else if(comboBox1.SelectedItem == "lammpstrj")
+            {
+                saveFileDialog1.Filter = "結晶構造アニメーション|*.lammpstrj|すべてのファイル|*.*";
+                openFileDialog1.Filter = "結晶構造アニメーション|*.lammpstrj|すべてのファイル|*.*";
+            }
         }
     }
 }

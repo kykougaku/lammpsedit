@@ -51,6 +51,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "すべてのファイル|*.|結晶構造データ|*.zinit|結晶構造アニメーション|*.lammpstrj*";
             // 
             // button1
             // 
@@ -88,7 +89,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "結晶構造データ|*.zinit|結晶構造アニメーション|*.lammpstrj|すべてのファイル|*.*";
+            this.saveFileDialog1.Filter = "すべてのファイル|*.|結晶構造データ|*.zinit|結晶構造アニメーション|*.lammpstrj*";
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // labelx
@@ -222,6 +223,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(151, 28);
             this.comboBox1.TabIndex = 17;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Form1
             // 
